@@ -1,0 +1,28 @@
+
+.alertUserFormData{
+    background-color: red;
+    color:white;
+    position: fixed;
+    right: 10px;
+    top: 70px ;
+    z-index: 3;
+    width: 350px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}   
+.alertUserFormData p{
+    margin: 0;
+    margin-left: 10px;
+}
+.alertUserFormData span {
+    cursor: pointer;
+}
+.alertUserFormData span:focus{
+    color: black;
+}

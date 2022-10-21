@@ -8,3 +8,33 @@
     text-align: center;
     padding-top: 10rem;
 }
+.homeDiv{
+    background: rgb(4,140,142);
+    background: linear-gradient(302deg, rgba(4,140,142,1) 0%, rgba(4,38,172,1) 100%);
+    max-height: auto;
+    min-height: 92vh;
+    color: white;
+}
+.section-one{
+    
+    display: flex;
+    align-items: center;
+    height: 92vh;
+}
+@media only screen and (max-width: 767px) {
+    .section-one{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center  ;
+        height: 200px;
+       
+    }
+  }
+.section-two{
+    display: flex;
+    align-items: center;
+}
+.section-two img{
+    width: 100%;
+}
