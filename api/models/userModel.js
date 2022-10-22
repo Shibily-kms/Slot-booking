@@ -21,45 +21,30 @@ const userSchema = new mongoose.Schema({
     application: {
         fullName: {
             type: String,
-            required: [true, 'Place Fill']
         },
         address: {
             type: String,
-            required: [true, 'Place Fill']
-
         },
         city: {
             type: String,
-            required: [true, 'Place Fill']
-
         },
         state: {
             type: String,
-            required: [true, 'Place Fill']
-
         },
         email: {
             type: String,
-            required: [true, 'Place Fill']
-
         },
         phone: {
             type: Number,
-            required: [true, 'Place Fill']
-
         },
         company: {
             type: String,
-            required: [true, 'Place Fill']
-
         },
         team: {
-            type: String,
-            required: [true, 'Place Fill']
+            type: String, 
         },
         companyDetails: {
             type: String,
-            required: [true, 'Place Fill']
         }
     },
     status: {

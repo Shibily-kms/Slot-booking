@@ -42,11 +42,12 @@ function Signup() {
       setError('Password minimum 6 letters required')
     } else {
      axios.post('http://localhost:5000/signup', formData).then((data)=>{
+      console.log(data,'data');
        if (data) {
          navigate("/login")
        }
      }).catch((error)=>{
-      
+        setError (error)
       console.log(error);
      })
 

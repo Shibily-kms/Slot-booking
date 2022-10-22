@@ -37,7 +37,16 @@ function EventRegister() {
         } else {
             console.log(formData);
             axios.post('http://localhost:5000/application-submit', formData, { withCredentials: true }).then((result) => {
-                console.log(result, 'result');
+                console.log('setUP ',result);
+                if(result.data.status){
+                    console.log('hi');
+                    setUser({
+                        ...user,
+                        form : true,
+                        formStatus : "Pending"
+
+                    })
+                }
             }).catch((error) => {
 
             })

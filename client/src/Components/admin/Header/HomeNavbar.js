@@ -3,8 +3,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useNavigate } from 'react-router-dom'
 import { AdminAuthContext } from '../../../Context/AdminContext';
 import { useCookies } from "react-cookie";
@@ -32,19 +30,16 @@ function HomeNavbar() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link eventKey={2} className='pt-3'><span >UserList</span></Nav.Link>
+              <Nav.Link eventKey={2} className='pt-3' onClick={()=> navigate('/admin/user-list')}><span >UserList</span></Nav.Link>
               <Nav.Link eventKey={2} >
                 <NavDropdown title="Applications" id="basic-nav-dropdown">
-                  <NavDropdown.Item >New application</NavDropdown.Item>
-                  <NavDropdown.Item >Approved application</NavDropdown.Item>
-                  <NavDropdown.Item >Rejected application</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{navigate('/admin/application/new')}} >New application</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{navigate('/admin/application/approved')}} >Approved application</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{navigate('/admin/application/rejected')}}>Rejected application</NavDropdown.Item>
                 </NavDropdown>
               </Nav.Link>
             </Nav>
             <Nav>
-
-
-
               <Nav.Link eventKey={2} onClick={() => {
                 removeCookie('jwtAdmin', { path: '/' })
                 setAdmin({
@@ -60,8 +55,6 @@ function HomeNavbar() {
               }}>
                 LogOut
               </Nav.Link>
-
-
             </Nav>
           </Navbar.Collapse>
         </Container>

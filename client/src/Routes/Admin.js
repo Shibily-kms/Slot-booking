@@ -4,7 +4,13 @@ import AdminLogin from '../Pages/admin/AdminLogin'
 import AdminHome from '../Pages/admin/AdminHome'
 import { AdminAuthContext } from '../Context/AdminContext'
 import axios from 'axios';
+
 // Componentes
+import UserListPage from '../Pages/admin/UserList'
+import EditUserPage from '../Pages/admin/EditUser'
+import NewApplications from '../Pages/admin/NewApplication'
+import ViewApplications from  '../Pages/admin/ViewApplication'
+import Rejected from '../Pages/admin/RejectedApplication'
 
 function Admin() {
   const { admin, setAdmin } = useContext(AdminAuthContext)
@@ -36,9 +42,12 @@ function Admin() {
       <Routes>
         <Route element={<AdminHome />} path='/' />
         <Route element={<AdminLogin />} path='/login' />
-        {/* <Route element={<LoginPage />} path='/user-list' />
-        <Route element={<LoginPage />} path='/edit-user' />
-        <Route element={<LoginPage />} path='/applications' /> */}
+        <Route element={<UserListPage />} path='/user-list' />
+        <Route element={<EditUserPage />} path='/edit-user' />
+        <Route element={<NewApplications />} path='/application' />
+        <Route element={<NewApplications />} path='/application/new' />
+        <Route element={<ViewApplications />} path='/application/new/view' />
+        <Route element={<Rejected />} path='/application/rejected' />
 
       </Routes>
     </div>

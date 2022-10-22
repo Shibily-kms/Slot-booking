@@ -6,15 +6,24 @@ const jwt = require('jsonwebtoken')
 
 module.exports.doSignUp = asyncHandler(async (req, res, next) => {
     try {
+        console.log('1');
         const user = req.body
+        console.log('2');
         const salt = await bcrypt.genSalt(10);
+        console.log('3');
         user.password = await bcrypt.hash(user.password, salt);
-        await UserModel.create(user)
-        res.status(201).json({
-            status: 'User Created'
+        console.log('4');
+        await UserModel.create(user).then((result) => {
+            res.status(201).json({
+                status: 'User Created'
+            })
+
         })
+        console.log('4');
+        console.log('5');
     } catch (error) {
         console.log(error)
+        console.log('error user');
         next(error)
     }
 })
@@ -86,4 +95,5 @@ module.exports.postApplicationSubmit = asyncHandler(async (req, res, next) => {
         console.log(error)
         next(error)
     }
-})
+});
+
