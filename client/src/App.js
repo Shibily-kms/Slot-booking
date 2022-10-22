@@ -3,6 +3,7 @@ import User from './Routes/User';
 import Admin from './Routes/Admin';
 import { Routes, Route } from 'react-router-dom'
 import { UserContext } from './Context/UserContext'
+import { AdminContext } from './Context/AdminContext'
 
 function App() {
   return (
@@ -10,9 +11,13 @@ function App() {
       <UserContext>
         <Routes>
           <Route element={<User />} path='/*' />
-          <Route element={<Admin />} path='/admin/*' />
         </Routes>
       </UserContext>
+      <AdminContext>
+        <Routes>
+          <Route element={<Admin />} path='/admin/*' />
+        </Routes>
+      </AdminContext>
 
     </div>
   );

@@ -1,0 +1,38 @@
+.head {
+    text-align: center;
+}
+
+.mainDiv {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(140deg, rgb(92, 0, 43) 0%, rgb(155, 0, 129) 26%, rgb(114, 29, 211) 100%);
+    min-height: 100vh;
+    max-height: auto;
+}
+.borderDiv{
+    background-color: rgba(255, 255, 255, 0.63);
+    padding: 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.boxDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    max-height: auto;
+    padding: 20px 10px;
+
+}
+.error-form{
+    background-color: red;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}

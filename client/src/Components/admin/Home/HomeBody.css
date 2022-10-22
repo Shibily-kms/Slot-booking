@@ -1,0 +1,40 @@
+.background{
+    width: 100%;
+    height: 750px;
+    background-color: bisque;
+}
+.heading{
+
+    text-align: center;
+    padding-top: 10rem;
+}
+.adminhomeDiv{
+    background: rgb(4,140,142);
+    background: linear-gradient(302deg, rgb(126, 4, 142) 0%, rgb(172, 4, 130) 100%);
+    max-height: auto;
+    min-height: 92vh;
+    color: white;
+}
+.section-one{
+    
+    display: flex;
+    align-items: center;
+    height: 92vh;
+}
+@media only screen and (max-width: 767px) {
+    .section-one{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center  ;
+        height: 200px;
+       
+    }
+  }
+.section-two{
+    display: flex;
+    align-items: center;
+}
+.section-two img{
+    width: 100%;
+}
