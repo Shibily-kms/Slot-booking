@@ -1,26 +1,37 @@
 const asyncHandler = require('express-async-handler')
-const UserModel = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const db = require('../config/db')
+const collection = require('../config/collection');
+const ObjectId = require('mongodb').ObjectId;
 
 
 module.exports.doSignUp = asyncHandler(async (req, res, next) => {
     try {
         console.log('1');
-        const user = req.body
-        console.log('2');
+        const userDetails = req.body
+        console.log(userDetails, '2');
         const salt = await bcrypt.genSalt(10);
         console.log('3');
-        user.password = await bcrypt.hash(user.password, salt);
+        userDetails.password = await bcrypt.hash(userDetails.password, salt);
         console.log('4');
-        await UserModel.create(user).then((result) => {
-            res.status(201).json({
-                status: 'User Created'
-            })
+        db.get().collection(collection.USER_COLLECTION).findOne({ email: userDetails.email }).then((user) => {
+            console.log(user, '5');
+            if (user) {
+                console.log('6');
+                res.status(400).json({ errMessage: "Email Already Used" })
+            } else {
+                console.log('7');
+                db.get().collection(collection.USER_COLLECTION).insertOne(userDetails).then((result) => {
+                    console.log(result, '8');
+                    res.status(201).json({
+                        status: 'User Created'
+                    })
+                })
 
+            }
         })
-        console.log('4');
-        console.log('5');
+        console.log('8');
     } catch (error) {
         console.log(error)
         console.log('error user');
@@ -32,7 +43,7 @@ module.exports.doLogin = asyncHandler(async (req, res, next) => {
         const maxAge = 60 * 60 * 24;
         const { email, password } = req.body;
 
-        const user = await UserModel.findOne({ email: email })
+        const user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: email })
 
         if (user) {
             const passwordCheck = await bcrypt.compare(password, user.password)
@@ -61,7 +72,7 @@ module.exports.getUserData = asyncHandler(async (req, res, next) => {
     try {
         const jwtToken = jwt.verify(req.cookies.jwt, process.env.TOKEN_KEY)
         const userID = jwtToken.userId
-        const user = await UserModel.findOne({ _id: userID })
+        const user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: userID })
         res.status(201).json(user)
     } catch (error) {
         throw Error(error)
@@ -74,7 +85,7 @@ module.exports.postApplicationSubmit = asyncHandler(async (req, res, next) => {
         const jwtToken = jwt.verify(req.cookies.jwt, process.env.TOKEN_KEY)
         const userID = jwtToken.userId
 
-        await UserModel.updateOne({ _id: userID }, {
+        await db.get().collection(collection.USER_COLLECTION).updateOne({ _id: ObjectId(userID) }, {
             $set: {
                 'application.fullName': formData.fullName,
                 'application.address': formData.address,

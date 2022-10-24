@@ -6,7 +6,8 @@ const cookieParser = require('cookie-parser')
 const connectDB = require('./config/db')
 const colors = require('colors')
 
-connectDB()
+const db = require('./config/db')
+
 
 const { errorHandler } = require('./middleware/errorMiddleware')
 /*routes */
@@ -24,6 +25,11 @@ app.use(cors({
         ]
 }))
 
+// MongoDB connection check
+db.connect((err) => {
+        if (err) console.log("Connection Error");
+        else console.log('Database connected')
+})
 
 /* Middlewares */
 app.use(express.json())

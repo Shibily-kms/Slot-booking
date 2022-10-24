@@ -1,6 +1,8 @@
 const asyncHandler = require('express-async-handler')
-const UserModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
+const db = require('../config/db')
+const collection = require('../config/collection');
+const ObjectId = require('mongodb').ObjectId;
 
 
 module.exports.doLogin = asyncHandler(async (req, res, next) => {
@@ -51,13 +53,15 @@ module.exports.adminDetails = asyncHandler(async (req, res, next) => {
 
 module.exports.getAllUser = asyncHandler(async (req, res, next) => {
     try {
-        await UserModel.find().then((userList) => {
+        await db.get().collection(collection.USER_COLLECTION).find().toArray().then((userList) => {
+
             if (userList) {
                 res.status(201).json(userList)
             } else {
                 res.status(201).json({ noResult: true })
             }
         }).catch((error) => {
+            console.log(error);
             throw Error(error)
         })
     } catch (error) {
@@ -69,11 +73,9 @@ module.exports.editUserData = asyncHandler(async (req, res, next) => {
     try {
         let data = req.body
         console.log(data, 'dataUser');
-        // const jwtToken = jwt.verify(req.cookies.jwtAdmin, process.env.TOKEN_KEY)
-        await UserModel.updateOne({ _id: data.id }, {
+        await db.get().collection(collection.USER_COLLECTION).updateOne({ _id: ObjectId(data.id) }, {
             $set: {
                 name: data.name,
-                email: data.email,
                 mobile: data.mobile
             }
         }).then((result) => {
@@ -93,7 +95,7 @@ module.exports.editUserData = asyncHandler(async (req, res, next) => {
 module.exports.deleteUser = asyncHandler(async (req, res, next) => {
     let data = req.body
     console.log(data, 'deleteData');
-    await UserModel.deleteOne({ _id: data.id }).then((result) => {
+    await db.get().collection(collection.USER_COLLECTION).deleteOne({ _id: ObjectId(data.id) }).then((result) => {
         if (result) {
             res.status(201).json({
                 status: 'User Deleted'
@@ -107,7 +109,7 @@ module.exports.deleteUser = asyncHandler(async (req, res, next) => {
 
 module.exports.getNewApplications = asyncHandler(async (req, res, next) => {
     try {
-        await UserModel.find({ status: "Pending" }).then((data) => {
+        await db.get().collection(collection.USER_COLLECTION).find({ status: "Pending" }).toArray().then((data) => {
             res.status(201).json(data)
         })
     } catch (error) {
@@ -119,7 +121,7 @@ module.exports.changeApplicationStatus = asyncHandler(async (req, res, next) => 
     try {
         console.log(req.body, 'changestatus');
         let data = req.body
-        await UserModel.updateOne({ _id: data.id }, {
+        await db.get().collection(collection.USER_COLLECTION).updateOne({ _id: ObjectId(data.id) }, {
             $set: {
                 status: data.status
             }
@@ -132,14 +134,59 @@ module.exports.changeApplicationStatus = asyncHandler(async (req, res, next) => 
     }
 });
 
-module.exports.rejectedApplicationStatus = asyncHandler(async(req,res,next)=>{
+module.exports.rejectedApplicationStatus = asyncHandler(async (req, res, next) => {
     try {
-        console.log('hhhhhhhhhhhhhhhhhhhhhhas');
-        await UserModel.find({ status: "Rejected" }).then((data) => {
-            console.log(data,'dataaaaaaaaa');
+
+        await db.get().collection(collection.USER_COLLECTION).find({ status: "Rejected" }).toArray().then((data) => {
+            console.log(data, 'dataaaaaaaaa');
             res.status(201).json(data)
         })
     } catch (error) {
         throw Error(error)
     }
+});
+
+module.exports.approvedApplicationStatus = asyncHandler(async (req, res, next) => {
+    try {
+        await db.get().collection(collection.USER_COLLECTION).find({ status: "Approved" }).toArray().then((data) => {
+            res.status(201).json(data)
+        })
+    } catch (error) {
+        throw Error(error)
+    }
+});
+
+module.exports.getAllSlots = asyncHandler(async (req, res, next) => {
+    try {
+        await db.get().collection(collection.SLOT_COLLECTION).find().toArray().then((slots) => {
+            res.status(201).json(slots)
+        })
+    } catch (error) {
+        throw Error(error)
+    }
+});
+
+module.exports.chooseSlot = asyncHandler(async (req, res, next) => {
+    try {
+        let body = req.body
+        await db.get().collection(collection.SLOT_COLLECTION).updateOne({ slotId: body.slotId }, {
+            $set: {
+                userId: body.userId,
+                company: body.company,
+                status: true
+            }
+        }).then((result) => {
+            db.get().collection(collection.USER_COLLECTION).updateOne({ _id: ObjectId(body.userId) }, {
+                $set: {
+                    slotNo: body.slotId
+                }
+            }).then(() => {
+                res.status(201).json({ status: 'Slot Booked' })
+            })
+        })
+        console.log(body, 'bodySlot');
+    } catch (error) {
+        next(error)
+    }
 })
+

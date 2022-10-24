@@ -1,14 +1,27 @@
 
-const mongoose = require('mongoose')
+const { MongoClient } = require('mongodb');
 
-const connectDB = async () => {
-    try {
-        const conn = await mongoose.connect(process.env.MONGO_URL)
-        console.log(`Database Connected: ${conn.connection.host} `.yellow.underline) // .yellow.underline is from color module
-    } catch (error) {
-        throw (error)
-    }
+// Database Connection
+
+const state = {
+    db: null
+
 }
 
-module.exports = connectDB
+module.exports.connect = function (done) {
+    const url = process.env.MONGO_URL
+    const dbname = 'Incubation'
+
+    MongoClient.connect(url, (err, data) => {
+        if (err) return done(err)
+        state.db = data.db(dbname)
+        done()
+    })
+
+}
+
+module.exports.get = function () {
+    return state.db
+
+}
 
