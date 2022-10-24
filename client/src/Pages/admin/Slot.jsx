@@ -1,15 +1,15 @@
 import React from 'react'
 import AdminHeader from '../../Components/admin/Header/HomeNavbar'
-import Approved from '../../Components/admin/Approved/ApprovedApplications'
+import SlotList from '../../Components/admin/Approved/SlotList'
 
 
-function ApprovedApplications() {
+function Slot() {
     return (
         <div>
             <AdminHeader />
-            <Approved />
+            <SlotList />
         </div>
     )
 }
 
-export default ApprovedApplications
+export default Slot

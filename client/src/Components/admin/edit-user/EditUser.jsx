@@ -31,7 +31,7 @@ function EditUser() {
     const handleOnSubmit = (e) => {
         e.preventDefault()
         setError('')
-        if (formData.name === '' || formData.email === '' || formData.mobile === '') {
+        if (formData.name === '' || formData.mobile === '') {
             setError('Fill complete Inputs')
         } else if (formData.mobile.length < 10 || formData.mobile.length > 10) {
             setError('Mobile 10 number required')
@@ -61,7 +61,7 @@ function EditUser() {
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" name='email' onChange={handleChange} defaultValue={location.state.email} />
+                                    <Form.Control disabled   type="email" placeholder="Enter email" readOnly  defaultValue={location.state.email} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicPhone">
                                     <Form.Label>Phone Number</Form.Label>

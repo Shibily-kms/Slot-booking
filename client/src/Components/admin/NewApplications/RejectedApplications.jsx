@@ -17,7 +17,7 @@ function RejectedApplications() {
     useEffect(() => {
         console.log('rejected running');
         axios.get('http://localhost:5000/admin/applications/rejected', { withCredentials: true }).then((application) => {
-           
+            console.log(application,'hi');
             setApplication(application.data)
         }).catch((error) => {
             console.log(error)

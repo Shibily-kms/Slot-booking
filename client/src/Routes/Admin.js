@@ -11,6 +11,8 @@ import EditUserPage from '../Pages/admin/EditUser'
 import NewApplications from '../Pages/admin/NewApplication'
 import ViewApplications from  '../Pages/admin/ViewApplication'
 import Rejected from '../Pages/admin/RejectedApplication'
+import Approved from '../Pages/admin/ApprovedApplications'
+import Slot from '../Pages/admin/Slot'
 
 function Admin() {
   const { admin, setAdmin } = useContext(AdminAuthContext)
@@ -44,10 +46,12 @@ function Admin() {
         <Route element={<AdminLogin />} path='/login' />
         <Route element={<UserListPage />} path='/user-list' />
         <Route element={<EditUserPage />} path='/edit-user' />
+        <Route element={<Slot />} path='/slot' />
         <Route element={<NewApplications />} path='/application' />
         <Route element={<NewApplications />} path='/application/new' />
         <Route element={<ViewApplications />} path='/application/new/view' />
         <Route element={<Rejected />} path='/application/rejected' />
+        <Route element={<Approved />} path='/application/approved' />
 
       </Routes>
     </div>

@@ -1,0 +1,18 @@
+.slot-list{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.slot-company-name{
+    white-space: nowrap; 
+    width: 110px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    color: gray;
+    font-size: 12px;
+    padding-left: 9px;
+}
+
+.chnage-cursor{
+    cursor:not-allowed;
+}

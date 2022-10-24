@@ -47,7 +47,7 @@ function Signup() {
          navigate("/login")
        }
      }).catch((error)=>{
-        setError (error)
+        setError (error.response.data.errMessage,'error')
       console.log(error);
      })
 

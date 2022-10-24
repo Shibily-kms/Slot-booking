@@ -65,7 +65,7 @@ function EventRegister() {
                         </div>}
                     <div className='row  boxDiv '>
                         {user.form ?
-                           <Popup  action={user.formStatus} />
+                           <Popup  action={user.formStatus} slot={user.slot} />
                             :
                             <div className='col-12 col-sm-7 col-md-6 borderDiv'>
                                 <h2 className='head'>Enter Your Startup details</h2>
