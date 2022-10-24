@@ -24,7 +24,7 @@ function HomeNavbar() {
             <Nav>
               {user.status ?
                 <>
-                  <Nav.Link eventKey={2} >
+                  <Nav.Link eventKey={2} onClick={()=>{navigate('/details')}} >
                     {user.name}
                   </Nav.Link>
                   <Nav.Link eventKey={2} onClick={() => {
@@ -35,7 +35,8 @@ function HomeNavbar() {
                       id:null,
                       form:false,
                       name:null,
-                      formStatus:null
+                      formStatus:null,
+                      slotNo :null
                     })
                     navigate("/login")
                     console.log(user,'hihihhlogout');

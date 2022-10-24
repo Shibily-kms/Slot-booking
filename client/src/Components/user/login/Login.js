@@ -41,7 +41,7 @@ function Login() {
             setError('Fill form complete')
         } else {
             axios.post('http://localhost:5000/login', formData, { withCredentials: true }).then((data) => {
-
+                
                 if (data.data.status === true) {
                     console.log(data.data, 'data');
                     setUser({
@@ -50,7 +50,8 @@ function Login() {
                         name: data.data.user.name,
                         status: true,
                         form: data.data.user.application ? true : false,
-                        formStatus: data.data.user.status ? data.data.user.status : null
+                        formStatus: data.data.user.status ? data.data.user.status : null,
+                        slotNo : data.data.user.slotNo ? data.data.user.slotNo : null
                     })
                     navigate('/')
                 } else {

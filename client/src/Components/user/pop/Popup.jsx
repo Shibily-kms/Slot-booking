@@ -4,7 +4,7 @@ import './popup.css'
 
 
 function Popup(props) {
-  // console.log(props,'proprs');
+  console.log(props,'proprs');
   const [formStatus,setFormStatus] = useState('pending')
   useEffect(()=>{
     if(props.action === 'Pending'){
@@ -23,7 +23,7 @@ function Popup(props) {
               <div className="title">
                 <h6>Your Registraion is</h6>
                 <h4 className={formStatus}>{props.action}</h4>
-                <h6 className='mt-3 text-secondary'>Your Solt Number : {props.Slot ? props.Slot : 'Pending'}</h6>
+                <h6 className='mt-3 text-secondary'>Your Solt Number : {props.slot ? props.slot : 'Pending'}</h6>
               </div>
           </div>
         </div>

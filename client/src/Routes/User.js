@@ -4,6 +4,7 @@ import HomePage from '../Pages/user/HomePage'
 import SignupPage from '../Pages/user/SignupPage'
 import LoginPage from '../Pages/user/LoginPage'
 import EventRegisterPage from '../Pages/user/EventRegisterPage'
+import UserDetails from '../Pages/user/UserDetails'
 import { UserAuthContext, UserContext } from '../Context/UserContext'
 import axios from 'axios';
 
@@ -22,18 +23,20 @@ function User() {
                     name:userData.data.name,
                     status:true,
                     form: userData.data.application ? true : false,
-                    formStatus:userData.data.status ? userData.data.status : null
-                })
-            }else{
-                setUser({
-                    ...user,
-                    id:null,
-                    name:null,
-                    status:false,
-                    form: false,
-                    formStatus:null
+                    formStatus:userData.data.status ? userData.data.status : null,
+                    slotNo : userData.data.slotNo ? userData.data.slotNo : null
                 })
             }
+        }).catch((error)=>{
+            setUser({
+                ...user,
+                id:null,
+                name:null,
+                status:false,
+                form: false,
+                formStatus:null,
+                slotNo:null
+            })
         })
     },[])
 
@@ -45,6 +48,7 @@ function User() {
                 <Route element={<SignupPage />} path='/signup' />
                 <Route element={<LoginPage />} path='/login' />
                 <Route element={<EventRegisterPage />} path='/event-register' />
+                <Route element={<UserDetails />} path='/details' />
             </Routes>
         </div>
     )

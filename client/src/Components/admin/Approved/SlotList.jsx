@@ -11,7 +11,7 @@ function SlotList() {
   const navigate = useNavigate();
   let location = useLocation();
   console.log(location, 'location');
-  const [slots, setSlots] = useState([]); 
+  const [slots, setSlots] = useState([]);
   useEffect(() => {
     axios.get('http://localhost:5000/admin/slot-list', { withCredentials: true }).then((slots) => {
       console.log(slots, 'slot');
@@ -49,12 +49,12 @@ function SlotList() {
 
       setSlots([...newItems])
       console.log(slots, 'after Changer');
-      
+
       navigate('/admin/slot', {
         replace: true
       });
       console.log(location, 'after click location status');
-      
+
 
       console.log(result, 'sloteCResult');
     }).catch((error) => {
@@ -67,7 +67,11 @@ function SlotList() {
     <div>
       <div className="container">
         <h3 className='text-center mt-2 text-primary'>Slot List</h3>
-        <p className='text-center fw-bold'>Choose Slot for Registerd Clients</p>
+        {location.state ?
+          <p className='text-center fw-bold'>Choose Slot for Registerd Clients</p>
+          :
+          <p className='text-center fw-bold'></p>
+        }
         <div className='slot-list'>
           {
             slots.map((slot) => {

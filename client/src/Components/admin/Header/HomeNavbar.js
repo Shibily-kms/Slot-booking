@@ -38,7 +38,7 @@ function HomeNavbar() {
                 <NavDropdown.Item onClick={() => { navigate('/admin/application/rejected') }}>Rejected application</NavDropdown.Item>
               </NavDropdown>
               
-
+              <Nav.Link eventKey={2}  onClick={() => navigate('/admin/slot')}><span >Slots</span></Nav.Link>
             </Nav>
             <Nav>
               <Nav.Link eventKey={2} onClick={() => {

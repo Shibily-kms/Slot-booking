@@ -1,12 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext,useEffect } from 'react'
 import { useState } from 'react';
 import { UserAuthContext } from '../../../Context/UserContext';
 import Form from 'react-bootstrap/Form';
 import './eventRegister.css'
 import axios from 'axios';
 import Popup from '../pop/Popup'
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom'
+
+
 function EventRegister() {
     const { user, setUser } = useContext(UserAuthContext)
+    const [cookies, setCookie] = useCookies(['jwt']);
+    const navigate = useNavigate()
+    console.log(user,'context ueser now');
     const [formData, setFormData] = useState({
         fullName: '',
         address: '',
@@ -19,6 +26,13 @@ function EventRegister() {
         companyDetails: ''
     })
     const [error, setError] = useState('')
+
+    useEffect(() => {
+        console.log(cookies, 'cookie');
+        if (!cookies.jwt) {
+            navigate('/login')
+        }
+    })
 
     const handleChange = (e) => {
         setError('')
@@ -65,7 +79,7 @@ function EventRegister() {
                         </div>}
                     <div className='row  boxDiv '>
                         {user.form ?
-                           <Popup  action={user.formStatus} slot={user.slot} />
+                           <Popup  action={user.formStatus} slot={user.slotNo} />
                             :
                             <div className='col-12 col-sm-7 col-md-6 borderDiv'>
                                 <h2 className='head'>Enter Your Startup details</h2>
@@ -98,10 +112,6 @@ function EventRegister() {
                                         <Form.Group className="mb-3" controlId="formBasicCompany">
                                             <Form.Label>Company Name</Form.Label>
                                             <Form.Control onChange={handleChange} type="text" placeholder="Company Name" name='company' />
-                                        </Form.Group>
-                                        <Form.Group className="mb-3" controlId="formBasicLogo">
-                                            <Form.Label>Company Logo</Form.Label>
-                                            <Form.Control onChange={handleChange} type="file" name='Company-Logo' />
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="formBasicTeam">
                                             <Form.Label>Describe your team and background</Form.Label>

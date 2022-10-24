@@ -21,14 +21,14 @@ function UserList() {
         navigate('/admin/edit-user', { state: { _id: id, name, email, mobile } })
     }
 
-    const deleteUser = (id)=>{
-        axios.post('http://localhost:5000/admin/delete-user',{id}, { withCredentials: true }).then((result)=>{
-        console.log(result,'userDetele');
-           if(result.data.status){
-            const newUserList = userList.filter((element)=> element._id !== id)
-            console.log(newUserList,'newlist');
-            setUserList(newUserList)
-           } 
+    const deleteUser = (id) => {
+        axios.post('http://localhost:5000/admin/delete-user', { id }, { withCredentials: true }).then((result) => {
+            console.log(result, 'userDetele');
+            if (result.data.status) {
+                const newUserList = userList.filter((element) => element._id !== id)
+                console.log(newUserList, 'newlist');
+                setUserList(newUserList)
+            }
         })
     }
 
@@ -44,6 +44,8 @@ function UserList() {
                                 <th>Full name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
+                                <th>Registration</th>
+                                <th>Slot</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -56,9 +58,11 @@ function UserList() {
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
                                             <td>{user.mobile}</td>
+                                            <td>{user.status ? user.status : '-'}</td>
+                                            <td>{user.status ? user.slotNo ? user.slotNo : 'Pending' : '-'}</td>
                                             <td>
-                                                <Button variant="primary" onClick={() => { editUser( user._id,  user.name, user.email,  user.mobile ) }}>Edit</Button>{' '}
-                                                <Button variant="danger" onClick={()=>{if(window.confirm('Are you delete user ?')){deleteUser (user._id)}}}>Delete</Button>{' '}
+                                                <Button variant="primary" onClick={() => { editUser(user._id, user.name, user.email, user.mobile) }}>Edit</Button>{' '}
+                                                <Button variant="danger" onClick={() => { if (window.confirm('Are you delete user ?')) { deleteUser(user._id) } }}>Delete</Button>{' '}
                                             </td>
                                         </tr>
                                     )

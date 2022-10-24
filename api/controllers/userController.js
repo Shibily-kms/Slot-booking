@@ -70,12 +70,21 @@ module.exports.doLogin = asyncHandler(async (req, res, next) => {
 
 module.exports.getUserData = asyncHandler(async (req, res, next) => {
     try {
+        console.log('hiiiiiicheck');
         const jwtToken = jwt.verify(req.cookies.jwt, process.env.TOKEN_KEY)
-        const userID = jwtToken.userId
-        const user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: userID })
-        res.status(201).json(user)
+        if(jwtToken){
+            console.log('hi');
+            const userID = jwtToken.userId
+            console.log(userID,'id');
+            const user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: ObjectId(userID) })
+            res.status(201).json(user)
+        }else{
+            console.log('errrorrrrr');
+        }
+        console.log('errrorrrrraaaaaaaaaa');
     } catch (error) {
-        throw Error(error)
+        res.status(400).json({errMessage:'User Not Login'})
+        // throw Error(error)
     }
 })
 

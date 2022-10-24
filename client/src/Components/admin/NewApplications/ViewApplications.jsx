@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Table from 'react-bootstrap/Table';
 
+
 function ViewApplications() {
     const location = useLocation()
+    
     let data = location.state
+   
     return (
         <div>
             <div className="container">
