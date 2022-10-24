@@ -10,14 +10,10 @@ import axios from 'axios'
 function SlotList() {
   const navigate = useNavigate();
   let location = useLocation();
-  console.log(location, 'location');
   const [slots, setSlots] = useState([]);
   useEffect(() => {
     axios.get('http://localhost:5000/admin/slot-list', { withCredentials: true }).then((slots) => {
-      console.log(slots, 'slot');
       setSlots(slots.data)
-    }).catch((error) => {
-      console.log(error)
     })
   }, [])
 
@@ -30,7 +26,6 @@ function SlotList() {
     }
     axios.post('http://localhost:5000/admin/choose-slot', obj, { withCredentials: true }).then((result) => {
 
-      console.log("Slot Boooked");
       let indexSlot = null
       slots.forEach((slot, index) => {
         if (slot.slotId === slotId) {
@@ -42,25 +37,14 @@ function SlotList() {
       item.userId = obj.userId
       item.company = obj.company
       item.status = obj.status
-      console.log(item, 'newItemOne');
-      console.log(indexSlot, 'index');
       newItems[indexSlot] = item
-      console.log(newItems, 'NeWList', typeof newItems, 'type');
 
       setSlots([...newItems])
-      console.log(slots, 'after Changer');
-
       navigate('/admin/slot', {
         replace: true
       });
-      console.log(location, 'after click location status');
 
-
-      console.log(result, 'sloteCResult');
-    }).catch((error) => {
-      console.log(error, 'sloteCError');
     })
-
   }
 
   return (

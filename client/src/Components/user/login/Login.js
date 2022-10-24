@@ -9,7 +9,6 @@ import { UserAuthContext } from '../../../Context/UserContext';
 
 function Login() {
     const { user, setUser } = useContext(UserAuthContext)
-    console.log(user, 'user');
     const [cookies, setCookie] = useCookies(['jwt']);
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
@@ -21,7 +20,6 @@ function Login() {
     const { email, password } = formData
 
     useEffect(() => {
-        console.log(cookies, 'cookie');
         if (cookies.jwt) {
             navigate('/')
         }
@@ -43,7 +41,6 @@ function Login() {
             axios.post('http://localhost:5000/login', formData, { withCredentials: true }).then((data) => {
                 
                 if (data.data.status === true) {
-                    console.log(data.data, 'data');
                     setUser({
                         ...user,
                         id: data.data.userId,
@@ -58,7 +55,6 @@ function Login() {
                     setError("Somting Error! Try now")
                 }
             }).catch((error) => {
-                console.log('formerror', error);
                 setError(error.response.data)
             })
         }

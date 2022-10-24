@@ -13,10 +13,7 @@ function NewApplications() {
 
     useEffect(() => {
         axios.get('http://localhost:5000/admin/applications/new', { withCredentials: true }).then((application) => {
-            console.log(application.data, 'userList');
             setApplication(application.data)
-        }).catch((error) => {
-            console.log(error)
         })
     }, [])
 

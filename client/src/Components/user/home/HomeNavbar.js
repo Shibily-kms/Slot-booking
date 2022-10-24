@@ -10,7 +10,6 @@ function HomeNavbar() {
   const navigate = useNavigate()
   const [cookies, setCookie, removeCookie] = useCookies([])
   const { user, setUser } = useContext(UserAuthContext)
-  console.log(user,'hihihhhihihihih');
   return (
     <React.Fragment>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -39,7 +38,6 @@ function HomeNavbar() {
                       slotNo :null
                     })
                     navigate("/login")
-                    console.log(user,'hihihhlogout');
                   }}>
                     LogOut
                   </Nav.Link>

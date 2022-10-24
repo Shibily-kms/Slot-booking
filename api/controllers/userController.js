@@ -8,22 +8,14 @@ const ObjectId = require('mongodb').ObjectId;
 
 module.exports.doSignUp = asyncHandler(async (req, res, next) => {
     try {
-        console.log('1');
         const userDetails = req.body
-        console.log(userDetails, '2');
         const salt = await bcrypt.genSalt(10);
-        console.log('3');
         userDetails.password = await bcrypt.hash(userDetails.password, salt);
-        console.log('4');
         db.get().collection(collection.USER_COLLECTION).findOne({ email: userDetails.email }).then((user) => {
-            console.log(user, '5');
             if (user) {
-                console.log('6');
                 res.status(400).json({ errMessage: "Email Already Used" })
             } else {
-                console.log('7');
                 db.get().collection(collection.USER_COLLECTION).insertOne(userDetails).then((result) => {
-                    console.log(result, '8');
                     res.status(201).json({
                         status: 'User Created'
                     })
@@ -31,10 +23,7 @@ module.exports.doSignUp = asyncHandler(async (req, res, next) => {
 
             }
         })
-        console.log('8');
     } catch (error) {
-        console.log(error)
-        console.log('error user');
         next(error)
     }
 })
@@ -70,21 +59,14 @@ module.exports.doLogin = asyncHandler(async (req, res, next) => {
 
 module.exports.getUserData = asyncHandler(async (req, res, next) => {
     try {
-        console.log('hiiiiiicheck');
         const jwtToken = jwt.verify(req.cookies.jwt, process.env.TOKEN_KEY)
         if(jwtToken){
-            console.log('hi');
             const userID = jwtToken.userId
-            console.log(userID,'id');
             const user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: ObjectId(userID) })
             res.status(201).json(user)
-        }else{
-            console.log('errrorrrrr');
         }
-        console.log('errrorrrrraaaaaaaaaa');
     } catch (error) {
         res.status(400).json({errMessage:'User Not Login'})
-        // throw Error(error)
     }
 })
 
@@ -112,7 +94,6 @@ module.exports.postApplicationSubmit = asyncHandler(async (req, res, next) => {
             status: 'Application Updated'
         })
     } catch (error) {
-        console.log(error)
         next(error)
     }
 });

@@ -18,7 +18,6 @@ function Admin() {
   const { admin, setAdmin } = useContext(AdminAuthContext)
   useEffect(() => {
     axios.get('http://localhost:5000/admin/admin-details', { withCredentials: true }).then((adminData) => {
-      console.log(adminData,'adminDatga');
       if (adminData.data) {
         setAdmin({
           ...admin,

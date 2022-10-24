@@ -5,7 +5,6 @@ import { useCookies } from 'react-cookie';
 import './login.css'
 import axios from 'axios';
 import { AdminAuthContext } from '../../../Context/AdminContext'
-console.log(AdminAuthContext,'newAdminAuth');
 
 function Login() {
     const { admin, setAdmin } = useContext(AdminAuthContext)
@@ -21,7 +20,6 @@ function Login() {
     const { email, password } = formData
 
     useEffect(() => {
-        console.log(cookies, 'cookie');
         if (cookies.jwtAdmin) {
             navigate('/admin/')
         }
@@ -41,9 +39,9 @@ function Login() {
             setError('Fill form complete')
         } else {
             axios.post('http://localhost:5000/admin/login', formData, { withCredentials: true }).then((data) => {
-                console.log(data, 'data');
+        
                 if (data.data.status === true) {
-                    console.log(data.data, 'data');
+                   
                     setAdmin({
                         ...admin,
                         id: data.data.id,
@@ -56,7 +54,7 @@ function Login() {
                     setError("Somting Error! Try now")
                 }
             }).catch((error) => {
-                console.log('formerror', error);
+              
                 setError(error.response.data)
             })
         }

@@ -10,14 +10,11 @@ function UserDetails() {
     const [user, setUser] = useState();
     const [cookies, setCookie] = useCookies(['jwt']);
     const navigate = useNavigate()
-    console.log(user, 'user');
     useEffect(() => {
-        console.log(cookies, 'cookie');
         if (!cookies.jwt) {
             navigate('/login')
         } else {
             axios.get('http://localhost:5000/user-auth-data', { withCredentials: true }).then((userData) => {
-                console.log(userData, 'userData in details');
                 setUser(userData.data)
             })
         }

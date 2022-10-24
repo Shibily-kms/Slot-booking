@@ -16,7 +16,6 @@ function Signup() {
   })
   const [error, setError] = useState('')
   useEffect(() => {
-    console.log(cookies,'cookie');
     if (cookies.jwt) {
         navigate('/')
     }
@@ -42,13 +41,11 @@ function Signup() {
       setError('Password minimum 6 letters required')
     } else {
      axios.post('http://localhost:5000/signup', formData).then((data)=>{
-      console.log(data,'data');
        if (data) {
          navigate("/login")
        }
      }).catch((error)=>{
         setError (error.response.data.errMessage,'error')
-      console.log(error);
      })
 
     }

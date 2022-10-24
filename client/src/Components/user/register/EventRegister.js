@@ -13,7 +13,6 @@ function EventRegister() {
     const { user, setUser } = useContext(UserAuthContext)
     const [cookies, setCookie] = useCookies(['jwt']);
     const navigate = useNavigate()
-    console.log(user,'context ueser now');
     const [formData, setFormData] = useState({
         fullName: '',
         address: '',
@@ -28,7 +27,6 @@ function EventRegister() {
     const [error, setError] = useState('')
 
     useEffect(() => {
-        console.log(cookies, 'cookie');
         if (!cookies.jwt) {
             navigate('/login')
         }
@@ -49,11 +47,8 @@ function EventRegister() {
         } else if (formData.phone.length < 10) {
             setError('Phone Number minimum 10 required')
         } else {
-            console.log(formData);
             axios.post('http://localhost:5000/application-submit', formData, { withCredentials: true }).then((result) => {
-                console.log('setUP ',result);
                 if(result.data.status){
-                    console.log('hi');
                     setUser({
                         ...user,
                         form : true,

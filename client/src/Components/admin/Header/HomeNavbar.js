@@ -17,7 +17,6 @@ function HomeNavbar() {
   const { admin, setAdmin } = useContext(AdminAuthContext)
 
   useEffect(() => {
-    console.log(cookies, 'cookie');
     if (!cookies.jwtAdmin) {
       navigate('/admin/login')
     }
@@ -52,7 +51,6 @@ function HomeNavbar() {
 
                 })
                 navigate("/admin/login")
-                console.log(admin, 'hihihhlogout');
               }}>
                 LogOut
               </Nav.Link>

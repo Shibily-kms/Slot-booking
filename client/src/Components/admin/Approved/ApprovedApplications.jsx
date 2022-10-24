@@ -13,15 +13,11 @@ function ApprovedApplications() {
 
   useEffect(() => {
     axios.get('http://localhost:5000/admin/applications/approved', { withCredentials: true }).then((application) => {
-      console.log(application.data, 'userList');
       setApplication(application.data)
-    }).catch((error) => {
-      console.log(error)
     })
   }, [])
 
   const chooseSlot = (details) => {
-    console.log('slot working');
     navigate('/admin/slot', { state: { id: details.id, company: details.company }})
   }
 

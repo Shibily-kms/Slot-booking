@@ -10,12 +10,8 @@ import axios from 'axios';
 
 function User() {
     const {user,setUser} = useContext(UserAuthContext)
-    // console.log(cont,'hh');
-    console.log('userEffect Top');
     useEffect(() => {
-        console.log('useEffect Inner Start');
         axios.get('http://localhost:5000/user-auth-data', { withCredentials: true }).then((userData) => {
-            console.log(userData.data, 'user');
             if(userData.data){
                 setUser({
                     ...user,

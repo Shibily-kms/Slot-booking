@@ -9,8 +9,7 @@ import axios from 'axios'
 function EditUser() {
     const location = useLocation()
     const navigate = useNavigate()
-    console.log(location, 'location');
-    // const userid = location.state._id
+
     const [error, setError] = useState('')
     const [formData, setFormData] = useState({
         id: location.state._id,
@@ -21,7 +20,6 @@ function EditUser() {
 
     const handleChange = (e) => {
         setError('')
-        console.log(formData, 'llllllllllllllllllll');
         setFormData((prevt) => ({
             ...formData,
             [e.target.name]: e.target.value

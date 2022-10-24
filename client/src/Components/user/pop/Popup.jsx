@@ -4,7 +4,6 @@ import './popup.css'
 
 
 function Popup(props) {
-  console.log(props,'proprs');
   const [formStatus,setFormStatus] = useState('pending')
   useEffect(()=>{
     if(props.action === 'Pending'){

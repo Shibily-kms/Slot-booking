@@ -61,7 +61,7 @@ module.exports.getAllUser = asyncHandler(async (req, res, next) => {
                 res.status(201).json({ noResult: true })
             }
         }).catch((error) => {
-            console.log(error);
+           
             throw Error(error)
         })
     } catch (error) {
@@ -72,7 +72,7 @@ module.exports.getAllUser = asyncHandler(async (req, res, next) => {
 module.exports.editUserData = asyncHandler(async (req, res, next) => {
     try {
         let data = req.body
-        console.log(data, 'dataUser');
+       
         await db.get().collection(collection.USER_COLLECTION).updateOne({ _id: ObjectId(data.id) }, {
             $set: {
                 name: data.name,
@@ -94,7 +94,7 @@ module.exports.editUserData = asyncHandler(async (req, res, next) => {
 
 module.exports.deleteUser = asyncHandler(async (req, res, next) => {
     let data = req.body
-    console.log(data, 'deleteData');
+   
     await db.get().collection(collection.USER_COLLECTION).deleteOne({ _id: ObjectId(data.id) }).then((result) => {
         if (result) {
             res.status(201).json({
@@ -119,7 +119,7 @@ module.exports.getNewApplications = asyncHandler(async (req, res, next) => {
 
 module.exports.changeApplicationStatus = asyncHandler(async (req, res, next) => {
     try {
-        console.log(req.body, 'changestatus');
+     
         let data = req.body
         await db.get().collection(collection.USER_COLLECTION).updateOne({ _id: ObjectId(data.id) }, {
             $set: {
@@ -138,7 +138,7 @@ module.exports.rejectedApplicationStatus = asyncHandler(async (req, res, next) =
     try {
 
         await db.get().collection(collection.USER_COLLECTION).find({ status: "Rejected" }).toArray().then((data) => {
-            console.log(data, 'dataaaaaaaaa');
+        
             res.status(201).json(data)
         })
     } catch (error) {
@@ -184,7 +184,7 @@ module.exports.chooseSlot = asyncHandler(async (req, res, next) => {
                 res.status(201).json({ status: 'Slot Booked' })
             })
         })
-        console.log(body, 'bodySlot');
+     
     } catch (error) {
         next(error)
     }

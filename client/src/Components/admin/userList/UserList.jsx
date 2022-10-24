@@ -10,10 +10,7 @@ function UserList() {
 
     useEffect(() => {
         axios.get('http://localhost:5000/admin/user-list', { withCredentials: true }).then((userList) => {
-            console.log(userList.data, 'userList');
             setUserList(userList.data)
-        }).catch((error) => {
-            console.log(error)
         })
     }, [])
 
@@ -23,10 +20,8 @@ function UserList() {
 
     const deleteUser = (id) => {
         axios.post('http://localhost:5000/admin/delete-user', { id }, { withCredentials: true }).then((result) => {
-            console.log(result, 'userDetele');
             if (result.data.status) {
                 const newUserList = userList.filter((element) => element._id !== id)
-                console.log(newUserList, 'newlist');
                 setUserList(newUserList)
             }
         })
